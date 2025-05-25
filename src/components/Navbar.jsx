@@ -21,15 +21,22 @@ export const Navbar = () => {
     const handleDeleteFavorite = (fav) => {
         dispatch({
             type: 'delete_favorite',
-            payload: fav
+            payload: { id: fav.id, typeObj: fav.typeObj }
         });
     };
 
     return (
         <nav className="navbar navbar-light bg-light">
             <div className="container">
-                {location.pathname === "/blog" ? (
-                    <span className="navbar-brand mb-0 h1">Go to Star Wars Blog</span>
+                {location.pathname != "/" ? (
+                <span className="navbar-brand mb-0 h1">
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Star_wars2.svg"
+                        alt="Star Wars Logo"
+                        height="40"
+                        className="d-inline-block align-text-top"
+                    />
+                </span>
                 ) : (
                     <Link to="/blog">
                         <span className="navbar-brand mb-0 h1">Go to Star Wars Blog</span>
@@ -60,12 +67,17 @@ export const Navbar = () => {
                         ) : (
                             favorites.map((fav, idx) => (
                                 <li key={fav.typeObj + fav.id} className="d-flex align-items-center justify-content-between">
-                                    <Link
-                                        className="dropdown-item-text"
-                                        to={`/single/${fav.typeObj}/${fav.id}`}
-                                    >
-                                        {fav.name}
-                                    </Link>
+                                    {location.pathname.startsWith("/single/")
+                                        ? <span className="dropdown-item-text">{fav.name}</span>
+                                        : (
+                                            <Link
+                                                className="dropdown-item-text"
+                                                to={`/single/${fav.typeObj}/${fav.id}`}
+                                            >
+                                                {fav.name}
+                                            </Link>
+                                        )
+                                    }
                                     <button
                                         className="btn btn-sm btn-danger ms-2"
                                         onClick={() => handleDeleteFavorite(fav)}

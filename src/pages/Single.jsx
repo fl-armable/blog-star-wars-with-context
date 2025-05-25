@@ -34,7 +34,6 @@ export const Single = () => {
 
     if (url) {
       fetchObject(url).then(data => setSimpleObject(data.result));
-//      console.log("Object fetched:", simpleObject);
     }
   }, []);
   return (
@@ -44,7 +43,7 @@ export const Single = () => {
             <div className="card-body p-2">
                 <div className="d-flex mb-2 gap-2">
                     <img src={"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/500px-Star_Wars_Logo.svg.png"}
-                    alt="avatar" className="card-image flex-shrink-0" style={{width: '150px', objectFit: 'contain'}} />
+                    alt="avatar" className="card-image flex-shrink-0" style={{width: '300px', objectFit: 'contain'}} />
                     <div className="flex-grow-1">
                         <h5 className="card-title mb-1">{simpleObject.properties.name}</h5>
                         <p className="card-text mb-0">{simpleObject.description}</p>
@@ -65,7 +64,7 @@ export const Single = () => {
       {/* A Link component acts as an anchor tag but is used for client-side routing to prevent page reloads. */}
       <Link to="/blog">
         <span className="btn btn-primary btn-lg" href="#" role="button">
-          Back home
+          Go back
         </span>
       </Link>
     </div>

@@ -32,6 +32,18 @@ export default function storeReducer(store, action = {}) {
         )
       };
     }
+    case 'delete_favorite': {
+      const { id, typeObj } = action.payload;
+      return {
+        ...store,
+        [typeObj]: store[typeObj].map(item =>
+          item.uid === id
+            ? { ...item, favorite: false }
+            : item
+        )
+      };
+    }
+
     default:
       throw Error('Unknown action.');
   }

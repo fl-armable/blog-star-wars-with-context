@@ -8,13 +8,20 @@ export default function Card({ url, type }) {
         { properties: { name: "", url: "" }, description: "" }
     );
     const isFavorite = store[type]
-    .find(item => item.uid === objectShared.uid)?.favorite === true;
-    
-    const localHandleClick = e => {
+        .find(item => item.uid === objectShared.uid)?.favorite === true;
+    const typeColors = {
+        vehicles: "green",
+        peoples: "blue",
+        planets: "orange"
+    };
+    const color = typeColors[type] || "gray";
+
+    const localHandleClick = () => {
         dispatch({
             type: "shift_favorite",
             payload: { id: objectShared.uid, typeObj: type }
         })
+        //        console.log('Is clicked' + type + '#' + objectShared.uid);
     }
 
     useEffect(() => {
@@ -32,12 +39,13 @@ export default function Card({ url, type }) {
         };
 
         if (url) {
-            fetchObject(url).then(data => setobjectShared(data.result));
-//            console.log("Object fetched:", objectShared);
-            dispatch({
-                type: "updated_object",
-                payload: { object: objectShared, id: objectShared.uid, typeObj: type }
-            })
+            fetchObject(url).then(data => {
+                setobjectShared(data.result);
+                dispatch({
+                    type: "updated_object",
+                    payload: { object: data.result, id: data.result.uid, typeObj: type }
+                });
+            });
         }
     }, []);
 
@@ -45,7 +53,12 @@ export default function Card({ url, type }) {
         <div className="card mb-1 g-0" style={{ width: '200px' }}>
             <div className="card-body">
                 <div className="card-header bg-white">
-                    <h1 className="text-center">{type}</h1>
+                    <img
+                        src={`https://placehold.co/300/${color}/white?text=${type}`}
+                        alt="avatar"
+                        className="card-image flex-shrink-0"
+                        style={{ width: '150px', objectFit: 'contain' }}
+                    />
                 </div>
                 <h5 className="card-title">{objectShared.properties.name}</h5>
                 <div className="row">
@@ -81,7 +94,7 @@ export default function Card({ url, type }) {
                                 style={{ border: 'none', background: 'none', color: '#ffc107', padding: 0 }}
                                 onMouseEnter={e => e.currentTarget.style.background = '#fffbe7'}
                                 onMouseLeave={e => e.currentTarget.style.background = 'none'}
-                                onClick={() => {localHandleClick} }
+                                onClick={localHandleClick}
                             >
                                 <span className="star-label">✰</span>
                             </button>
