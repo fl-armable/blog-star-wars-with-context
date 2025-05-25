@@ -1,32 +1,38 @@
-export const initialStore=()=>{
-  return{
-    message: null,
-    todos: [
-      {
-        id: 1,
-        title: "Make the bed",
-        background: null,
-      },
-      {
-        id: 2,
-        title: "Do my homework",
-        background: null,
-      }
-    ]
-  }
+import { objVehicles, objPeoples, objPlanets } from "./components/objects";
+
+export const initialStore = () => {
+  return {
+    vehicles: objVehicles,
+    peoples: objPeoples,
+    planets: objPlanets
+  };
 }
 
 export default function storeReducer(store, action = {}) {
-  switch(action.type){
-    case 'add_task':
-
-      const { id,  color } = action.payload
-
+  switch (action.type) {
+    case 'updated_object': {
+      const { object, id, typeObj } = action.payload;
       return {
         ...store,
-        todos: store.todos.map((todo) => (todo.id === id ? { ...todo, background: color } : todo))
+        [typeObj]: store[typeObj].map(item =>
+          item.uid === id
+            ? { ...item, result: object }
+            : item
+        )
       };
+    }
+    case 'shift_favorite': {
+      const { id, typeObj } = action.payload;
+      return {
+        ...store,
+        [typeObj]: store[typeObj].map(item =>
+          item.uid === id
+            ? { ...item, favorite: !item.favorite }
+            : item
+        )
+      };
+    }
     default:
       throw Error('Unknown action.');
-  }    
+  }
 }

@@ -1,0 +1,53 @@
+/* Carrusel horizontal para las Cards en Blog.jsx */
+.cards-carousel-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 1rem 0 0 0;
+}
+
+.cards-carousel-inner {
+  display: inline-flex;
+  gap: 1rem;
+}
+
+.cards-carousel-item {
+  display: inline-block;
+}
+
+.card-description-ellipsis {
+    max-height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: break-word;
+}
+
+.btn-learn-more {
+    border: none;
+    background: none;
+    color: #0d6efd;
+    padding: 0;
+    transition: background 0.2s;
+}
+.btn-learn-more:hover, .btn-learn-more:focus {
+    background: #e7f1ff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+}
+
+.btn-fav-star {
+    border: none;
+    background: none;
+    color: #ffc107;
+    padding: 0;
+    font-size: 1.3rem;
+    transition: background 0.2s, color 0.2s;
+}
+.btn-fav-star:hover, .btn-fav-star:focus {
+    background: #fffbe7;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+}
+.btn-fav-star.star-filled .star-label {
+    color: #111;
+}
