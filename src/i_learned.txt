@@ -1,0 +1,5 @@
+En este proyecto aprendí:
+-A usar un estado global cuando es necesario renderizar varias páginas
+-A usar un objeto como estado global
+-El objeto puede incluir todos las propiedades de la App
+-A usar a la IA para generar estilos con Bootstrap
